@@ -12,7 +12,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    @Autowired//맴버 서비스와 맴버 리포지토리를 연결시켜줌
+    //맴버 서비스와 맴버 리포지토리를 연결시켜줌
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
