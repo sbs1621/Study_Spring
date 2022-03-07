@@ -9,8 +9,8 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @Autowired//맴버 서비스를 가져다가 연결 시켜줌
-  줌 public MemberController(MemberService memberService) {
+    @Autowired//맴버 서비스를 가져다가 연결 시켜줌줌
+     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
 }

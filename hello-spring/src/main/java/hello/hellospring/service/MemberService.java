@@ -3,6 +3,7 @@ package hello.hellospring.service;
 import hello.hellospring.domin.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,8 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+
+    @Autowired//맴버 서비스와 맴버 리포지토리를 연결시켜줌
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

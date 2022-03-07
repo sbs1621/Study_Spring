@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class HelloController {
+public class   HelloController {
 
     @GetMapping("hello")
     public String hello(Model model){
