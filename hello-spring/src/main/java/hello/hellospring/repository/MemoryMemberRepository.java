@@ -1,8 +1,6 @@
 package hello.hellospring.repository;
 
-import hello.hellospring.domin.Member;
-import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.ResponseBody;
+import hello.hellospring.domain.Member;
 
 
 import java.util.*;
