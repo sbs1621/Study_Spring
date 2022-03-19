@@ -1,2 +1,3 @@
 
 helloController/src/main/resources/applicatuon-oauth.properties
+*.properties
