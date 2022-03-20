@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 public class PostsService {
     private final PostsRepository postsRepository;
 
+
     @Transactional
     public Posts getById(Long id) {
         return postsRepository.findById(id).get();
