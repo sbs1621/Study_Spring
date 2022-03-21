@@ -2,6 +2,7 @@ package hello.helloController.Controller;
 
 import hello.helloController.Controller.dto.PostsResponseDto;
 import hello.helloController.Service.PostsService;
+import hello.helloController.config.auth.LoginUser;
 import hello.helloController.config.auth.dto.SessionUser;
 
 import hello.helloController.domain.user.User;
@@ -24,9 +25,8 @@ public class IndexController {
         return "index";
     }*/
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         model.addAttribute("posts", postsService.findAllDesc());
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
         if(user != null)
             model.addAttribute("userName", user.getName());
         return "index";
