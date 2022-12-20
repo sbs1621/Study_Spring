@@ -30,7 +30,7 @@ spring:
 
 logging:
   level:
-    me.silvernine: INFO
+    com.example: INFO
 
 jwt:
   header: Authorization

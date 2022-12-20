@@ -31,14 +31,23 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo());
     }
 
-    //Auth
+    //swagger
+    private ApiInfo apiInfo(){
+        return new ApiInfoBuilder()
+                .title("Codebase")
+                .description("jwt and swagger codebase")
+                .version("3.0")
+                .build();
+    }
+
+    //swagger - Auth
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
                 .build();
     }
 
-    //Auth
+    //swagger - Auth
     private List<SecurityReference> defaultAuth() {
         AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
@@ -46,15 +55,9 @@ public class SwaggerConfig {
         return Arrays.asList(new SecurityReference("Authorization", authorizationScopes));
     }
 
-    //Auth
+    //swagger - Auth
     private ApiKey apiKey() {
         return new ApiKey("Authorization", "Authorization", "header");
     }
-    private ApiInfo apiInfo(){
-        return new ApiInfoBuilder()
-                .title("Codebase")
-                .description("SwaggerConfig")
-                .version("3.0")
-                .build();
-    }
+
 }

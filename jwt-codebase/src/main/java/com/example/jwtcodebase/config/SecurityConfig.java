@@ -52,33 +52,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // token을 사용하는 방식이기 때문에 csrf를 disable합니다.
+                /*----------------------- token사용 -> csrf disable -----------------------*/
                 .csrf().disable()
 
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
-                /*----------------------------------H2----------------------------------*/
+                /*---------------------------------- H2 ----------------------------------*/
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
-                /*-----------------------------------------------------------------------*/
 
-                /*-----------------------------세션 STATELESS-----------------------------*/
+                /*----------------------------- 세션 STATELESS -----------------------------*/
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                /*-----------------------------------------------------------------------*/
                 .and()
                 .authorizeRequests()
 
-                /*--------------------------------Swagger--------------------------------*/
+                /*-------------------------------- Swagger --------------------------------*/
                 .antMatchers("/swagger-resources/**").permitAll()// swagger
                 .antMatchers("/swagger-ui/**").permitAll() // swagger
-                /*-----------------------------------------------------------------------*/
 
+                /*-------------------------------- Path설정 --------------------------------*/
                 .antMatchers("/api/hello").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/signup").permitAll()
