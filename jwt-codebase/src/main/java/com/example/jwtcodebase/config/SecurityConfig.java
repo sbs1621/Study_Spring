@@ -1,9 +1,9 @@
-package me.silvernine.tutorial.config;
+package com.example.jwtcodebase.config;
 
-import me.silvernine.tutorial.jwt.JwtSecurityConfig;
-import me.silvernine.tutorial.jwt.JwtAccessDeniedHandler;
-import me.silvernine.tutorial.jwt.JwtAuthenticationEntryPoint;
-import me.silvernine.tutorial.jwt.TokenProvider;
+import com.example.jwtcodebase.jwt.JwtAccessDeniedHandler;
+import com.example.jwtcodebase.jwt.JwtAuthenticationEntryPoint;
+import com.example.jwtcodebase.jwt.JwtSecurityConfig;
+import com.example.jwtcodebase.jwt.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.filter.CorsFilter;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -45,6 +43,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/h2-console/**"
                         ,"/favicon.ico"
                 );
+        web.ignoring().antMatchers(
+                "/v3/api-docs",  "/configuration/ui",
+                "/swagger-resources", "/configuration/security",
+                "/swagger-ui.html", "/webjars/**","/swagger/**");
     }
 
     @Override
@@ -57,23 +59,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler)
 
-                // enable h2-console
+                /*----------------------------------H2----------------------------------*/
                 .and()
                 .headers()
                 .frameOptions()
                 .sameOrigin()
+                /*-----------------------------------------------------------------------*/
 
-                // 세션을 사용하지 않기 때문에 STATELESS로 설정
+                /*-----------------------------세션 STATELESS-----------------------------*/
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
+                /*-----------------------------------------------------------------------*/
                 .and()
                 .authorizeRequests()
+
+                /*--------------------------------Swagger--------------------------------*/
+                .antMatchers("/swagger-resources/**").permitAll()// swagger
+                .antMatchers("/swagger-ui/**").permitAll() // swagger
+                /*-----------------------------------------------------------------------*/
+
                 .antMatchers("/api/hello").permitAll()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/signup").permitAll()
-                .antMatchers("/api/user").hasRole("ADMIN")
                 .anyRequest().authenticated()
 
                 .and()
